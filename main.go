@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"os"
 	"os/exec"
@@ -10,7 +11,9 @@ import (
 )
 
 var (
-	collectorCMD *exec.Cmd
+	collectorCMD    *exec.Cmd
+	collectorOutput bytes.Buffer
+	collectorErr    bytes.Buffer
 )
 
 func main() {
@@ -37,7 +40,10 @@ func main() {
 	err = executeCommand()
 	time.Sleep(30 * time.Second)
 	fmt.Println("error while executing command :", err)
+	//collectorCMD.Process.
+
 	err = collectorCMD.Process.Kill()
+	fmt.Println("Collector Output :", collectorOutput.String())
 	if err != nil {
 		fmt.Println("error in killing process")
 	}
@@ -71,6 +77,8 @@ func createOtelConfig() error {
 func runCollector() error {
 	collectorCMD = exec.Command("./cmd-otelcol", "--config=config.yaml")
 	collectorCMD.Dir = "./otel/bin"
+	collectorCMD.Stdout = &collectorOutput
+	collectorCMD.Stdin = &collectorErr
 	return collectorCMD.Start()
 }
 
