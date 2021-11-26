@@ -76,6 +76,8 @@ func runCollector() error {
 func executeCommand(cmnd string) error {
 	cmd := exec.Command(cmnd)
 	repoDir := os.Getenv("GITHUB_WORKSPACE")
+	fmt.Println("LOGICMONITOR_ACCOUNT :", os.Getenv("LOGICMONITOR_ACCOUNT"))
+	fmt.Println("LOGICMONITOR_BEARER_TOKEN :", os.Getenv("LOGICMONITOR_BEARER_TOKEN"))
 	cmd.Dir = repoDir
 	output, err := cmd.Output()
 	if err != nil {
