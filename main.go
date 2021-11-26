@@ -65,7 +65,7 @@ func buildCollector() error {
 }
 
 func createOtelConfig() error {
-	cmd := exec.Command("cp", "config.yaml", "./otel/bin/config.yaml")
+	cmd := exec.Command("cp", "config.yaml", "/go/src/otel/bin/config.yaml")
 	//cmd.Dir = "./otel/bin/"
 	return cmd.Run()
 }
