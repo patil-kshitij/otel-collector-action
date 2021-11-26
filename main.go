@@ -28,21 +28,17 @@ func main() {
 	createOtelConfig()
 
 	//run bin
-	err = runCollector()
+	go runCollector()
 	if err != nil {
 		fmt.Println("error in running collector :", err)
-	}
-	fmt.Println("About to wait for collector")
-	for collectorCMD.Process == nil {
-
 	}
 	time.Sleep(30 * time.Second)
 	err = executeCommand()
 	time.Sleep(30 * time.Second)
 	fmt.Println("error while executing command :", err)
 	//collectorCMD.Process.
-	fmt.Println("Collector Output :", collectorOutput.String())
-	fmt.Println("collector err :", collectorErr.String())
+	// fmt.Println("Collector Output :", collectorOutput.String())
+	// fmt.Println("collector err :", collectorErr.String())
 	err = collectorCMD.Process.Kill()
 	if err != nil {
 		fmt.Println("error in killing process")
@@ -77,9 +73,11 @@ func createOtelConfig() error {
 func runCollector() error {
 	collectorCMD = exec.Command("./cmd-otelcol", "--config=config.yaml")
 	collectorCMD.Dir = "./otel/bin"
-	collectorCMD.Stdout = &collectorOutput
-	collectorCMD.Stdin = &collectorErr
-	return collectorCMD.Start()
+	// collectorCMD.Stdout = &collectorOutput
+	// collectorCMD.Stdin = &collectorErr
+	output, err := collectorCMD.CombinedOutput()
+	fmt.Println("Collector Output :", string(output))
+	return err
 }
 
 func executeCommand() error {
