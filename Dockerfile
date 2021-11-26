@@ -9,4 +9,4 @@ EXPOSE 4318/udp
 ENV LOGICMONITOR_ACCOUNT=$LOGICMONITOR_ACCOUNT
 ENV LOGICMONITOR_BEARER_TOKEN=$LOGICMONITOR_BEARER_TOKEN
 RUN go build -o otel-collector-action
-CMD ["./otel-collector-action"]
+CMD ["/go/src/otel-collector-action"]
