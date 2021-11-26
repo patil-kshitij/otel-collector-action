@@ -71,7 +71,7 @@ func createOtelConfig() error {
 }
 
 func runCollector() error {
-	collectorCMD = exec.Command("./cmd-otelcol", "--config=config.yaml")
+	collectorCMD = exec.Command("./cmd-otelcol", "--config=/go/src/config.yaml")
 	collectorCMD.Dir = "./otel/bin"
 	// collectorCMD.Stdout = &collectorOutput
 	// collectorCMD.Stdin = &collectorErr
