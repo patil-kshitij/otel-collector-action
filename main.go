@@ -44,6 +44,7 @@ func main() {
 
 	err = collectorCMD.Process.Kill()
 	fmt.Println("Collector Output :", collectorOutput.String())
+	fmt.Println("collector err :", collectorErr.String())
 	if err != nil {
 		fmt.Println("error in killing process")
 	}
