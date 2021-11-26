@@ -1,0 +1,7 @@
+#action.yaml
+name: otel-collector-action
+description: run otel collector as an action
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  

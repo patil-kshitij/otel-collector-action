@@ -1,0 +1,27 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+      http:
+
+processors:
+  batch:
+
+exporters:
+  otlphttp:
+    endpoint: https://${LOGICMONITOR_ACCOUNT}.logicmonitor.com/rest/api
+    headers:
+      Authorization: Bearer ${LOGICMONITOR_BEARER_TOKEN}  
+      x-logicmonitor-account: ${LOGICMONITOR_ACCOUNT}
+  logging:
+    loglevel: info
+    sampling_initial: 5
+    sampling_thereafter: 200
+
+  
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlphttp,logging]
