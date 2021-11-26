@@ -35,6 +35,7 @@ func main() {
 	}
 	time.Sleep(30 * time.Second)
 	err = executeCommand()
+	time.Sleep(30 * time.Second)
 	fmt.Println("error while executing command :", err)
 	err = collectorCMD.Process.Kill()
 	if err != nil {
